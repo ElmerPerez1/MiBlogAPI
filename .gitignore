@@ -1,0 +1,34 @@
+# Dependencias
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+logs/
+*.log
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Entorno
+.env
+.env.local
+
+# Compilados / coverage
+coverage/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+
+# Subidas
+imagenes/articulos/*
+!imagenes/articulos/.gitkeep
+
+# Otros
+*.tgz
