@@ -16,6 +16,9 @@ app.use(cors());
 //Convertir body a objeto js
 app.use(express.json());
 
+//Servir archivos estáticos
+app.use('/imagenes', express.static('./imagenes'));
+
 //Crear rutas
 const rutas_articulo = require("./rutas/articulo");
 
@@ -24,29 +27,29 @@ app.use("/api", rutas_articulo);
 
 //Rutas de prueba hardcodeadas
 app.get("/probando", (req, res) => {
-    console.log("Se ha ejecutado el endpoint probando");
+  console.log("Se ha ejecutado el endpoint probando");
 
-    return res.status(200).json([{
-        curso: "Master en React",
-        autor: "Carlos Arias",
-        url: "www.stscloud.com.gt"
-    },
-    {
-        curso: "Master en React",
-        autor: "Carlos Arias",
-        url: "www.stscloud.com.gt"
-    },
-    ]);
+  return res.status(200).json([{
+    curso: "Master en React",
+    autor: "Carlos Arias",
+    url: "www.stscloud.com.gt"
+  },
+  {
+    curso: "Master en React",
+    autor: "Carlos Arias",
+    url: "www.stscloud.com.gt"
+  },
+  ]);
 });
 
 
 app.get("/", (req, res) => {
-    console.log("Se ha ejecutado el endpoint probando");
+  console.log("Se ha ejecutado el endpoint probando");
 
-    return res.status(200).send(
-        `<h1>Empezando a crear un api rest con NODE</h1>
+  return res.status(200).send(
+    `<h1>Empezando a crear un api rest con NODE</h1>
         `);
-    
+
 });
 
 //Crear servidor y escucha de peticiones 

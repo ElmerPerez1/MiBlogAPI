@@ -5,7 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --runInBand",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "dev": "nodemon index.js",
+    "frontend": "cd frontend && npm run dev",
+    "install-frontend": "cd frontend && npm install",
+    "fullstack": "./start-fullstack.sh",
+    "setup": "npm install && cd frontend && npm install"
   },
   "author": "Carlos Arias",
   "license": "MIT",
