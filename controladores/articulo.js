@@ -32,25 +32,28 @@ const crear = async (req, res) => {
         });
     }
 
+    // Asegurar que tenga un valor por defecto para imgUrl
+    if (!parametros.imgUrl) {
+        parametros.imgUrl = "default.png";
+    }
+
     //Crear el objeto guardar
     const articulo = new Articulo(parametros);
 
-    //Asiginar valores a objeto basado en en el modelo (manual o automatico)
-    //articulo.titulo = parametros.titulo;
-
-    //Guardar el articulo en la base de datos
-    const articuloGuardado = await articulo.save();
-    return res.status(200).json({
-        status: "success",
-        articulo: articuloGuardado,
-        mensaje: "Articulo creado con exito",
-    });
-
-    //Devolver el resultado
-    return res.status(200).json({
-        mensaje: "Acción de guardar",
-        parametros
-    })
+    try {
+        //Guardar el articulo en la base de datos
+        const articuloGuardado = await articulo.save();
+        return res.status(200).json({
+            status: "success",
+            articulo: articuloGuardado,
+            mensaje: "Articulo creado con exito",
+        });
+    } catch (error) {
+        return res.status(500).json({
+            status: "error",
+            mensaje: "Error al guardar el artículo en la base de datos"
+        });
+    }
 }
 
 
@@ -224,11 +227,37 @@ const subir = async (req, res) => {
                 mensaje: "Imagen inválida"
             });
         } else {
-            return res.status(200).json({
-                status: "success",
-                archivo_split,
-                files: req.file
-            });
+            // Obtener el ID del artículo de los parámetros
+            const articuloId = req.params.id;
+            
+            // Actualizar el artículo con el nombre del archivo
+            if (articuloId) {
+                try {
+                    const articuloActualizado = await Articulo.findOneAndUpdate(
+                        { _id: articuloId },
+                        { imgUrl: req.file.filename },
+                        { new: true }
+                    );
+                    
+                    return res.status(200).json({
+                        status: "success",
+                        archivo: req.file.filename,
+                        articulo: articuloActualizado,
+                        mensaje: "Imagen subida y artículo actualizado correctamente"
+                    });
+                } catch (error) {
+                    return res.status(500).json({
+                        status: "error",
+                        mensaje: "Error al actualizar el artículo con la imagen"
+                    });
+                }
+            } else {
+                return res.status(200).json({
+                    status: "success",
+                    archivo: req.file.filename,
+                    mensaje: "Imagen subida correctamente"
+                });
+            }
         }
     } catch (error) {
         return res.status(500).json({

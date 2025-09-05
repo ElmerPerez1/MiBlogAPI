@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { ArrowLeft, Save, Upload } from 'lucide-react'
+import { ArrowLeft, Save, Upload, Edit3 } from 'lucide-react'
 import { createArticle, uploadImage } from '../services/articleService'
 
 const CreateArticle = ({ onArticleCreated }) => {
@@ -39,7 +39,9 @@ const CreateArticle = ({ onArticleCreated }) => {
       }
 
       // Actualizar la lista de artículos y navegar
-      onArticleCreated()
+      if (onArticleCreated) {
+        onArticleCreated()
+      }
       navigate('/')
     } catch (error) {
       console.error('Error creating article:', error)
@@ -50,25 +52,30 @@ const CreateArticle = ({ onArticleCreated }) => {
   }
 
   return (
-    <div>
-      <div style={{ marginBottom: '2rem' }}>
+    <div className="full-width-container" style={{ padding: '2rem' }}>
+      <div style={{ marginBottom: '2rem', maxWidth: '800px', margin: '0 auto 2rem' }}>
         <Link to="/" className="btn btn-secondary">
           <ArrowLeft size={16} />
-          Volver al inicio
+          Volver al Inicio
         </Link>
       </div>
 
-      <div className="card">
-        <div style={{ marginBottom: '2rem' }}>
+      <div className="card" style={{ maxWidth: '800px', margin: '0 auto' }}>
+        <div style={{ marginBottom: '2rem', textAlign: 'center' }}>
+          <Edit3 size={48} style={{ color: '#4c51bf', marginBottom: '1rem' }} />
           <h1 style={{ 
-            fontSize: '2rem', 
-            fontWeight: '700', 
-            color: '#1f2937',
-            marginBottom: '0.5rem'
+            fontSize: '2.5rem', 
+            fontWeight: '900', 
+            color: '#2d3748',
+            marginBottom: '0.5rem',
           }}>
             Crear Nuevo Artículo
           </h1>
-          <p style={{ color: '#6b7280' }}>
+          <p style={{ 
+            color: '#4a5568', 
+            fontSize: '1.2rem',
+            fontWeight: '400' 
+          }}>
             Comparte tus ideas y conocimientos con el mundo
           </p>
         </div>
@@ -100,8 +107,8 @@ const CreateArticle = ({ onArticleCreated }) => {
               value={formData.contenido}
               onChange={handleInputChange}
               className="form-textarea"
-              rows="10"
-              placeholder="Escribe el contenido de tu artículo..."
+              rows="12"
+              placeholder="Comparte tu conocimiento aquí..."
               required
             />
           </div>
@@ -117,16 +124,23 @@ const CreateArticle = ({ onArticleCreated }) => {
               className="form-file"
               accept="image/*"
             />
-            <small style={{ color: '#6b7280', fontSize: '0.875rem' }}>
-              Formatos soportados: JPG, PNG, GIF. Tamaño máximo: 5MB
+            <small style={{ 
+              color: '#4a5568', 
+              fontSize: '0.9rem',
+              fontWeight: '500',
+              display: 'block',
+              marginTop: '0.5rem'
+            }}>
+              Formatos soportados: JPG, PNG, GIF | Tamaño máximo: 5MB
             </small>
           </div>
 
           <div style={{ 
             display: 'flex', 
             gap: '1rem', 
-            justifyContent: 'flex-end',
-            marginTop: '2rem'
+            justifyContent: 'center',
+            marginTop: '2.5rem',
+            flexWrap: 'wrap'
           }}>
             <Link to="/" className="btn btn-secondary">
               Cancelar
@@ -135,15 +149,16 @@ const CreateArticle = ({ onArticleCreated }) => {
               type="submit" 
               className="btn-primary"
               disabled={loading}
+              style={{ minWidth: '200px' }}
             >
               {loading ? (
                 <>
-                  <Upload size={16} />
+                  <Upload size={18} />
                   Creando...
                 </>
               ) : (
                 <>
-                  <Save size={16} />
+                  <Save size={18} />
                   Crear Artículo
                 </>
               )}

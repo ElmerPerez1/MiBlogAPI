@@ -13,13 +13,17 @@ function App() {
   const [loading, setLoading] = useState(true)
 
   const loadArticles = async () => {
+    console.log('loadArticles - iniciando carga...')
     try {
       const data = await getArticles()
-      setArticles(data.articulos || [])
+      console.log('loadArticles - datos recibidos:', data)
+      setArticles(data.consulta || [])
+      console.log('loadArticles - artículos guardados:', data.consulta || [])
     } catch (error) {
       console.error('Error loading articles:', error)
     } finally {
       setLoading(false)
+      console.log('loadArticles - carga completada')
     }
   }
 

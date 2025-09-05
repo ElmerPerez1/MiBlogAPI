@@ -1,6 +1,12 @@
 # Mi Blog API - Full Stack
 
-Un blog personal moderno con API REST desarrollado con Node.js y frontend en React.
+Blog full stack moderno (Node.js + React) con subida de imágenes, API REST limpia y frontend minimalista.
+
+## 📚 Documentación Detallada
+- [Backend (API)](README_BACKEND.md)
+- [Frontend (UI)](README_FRONTEND.md)
+
+Si es tu primera vez, sigue la sección de Instalación Rápida.
 
 ## 🚀 Características
 
@@ -13,11 +19,11 @@ Un blog personal moderno con API REST desarrollado con Node.js y frontend en Rea
 - **Tests** - Suite completa con Jest
 
 ### Frontend (React)
-- **React 18 + Vite** - Interfaz moderna y rápida
-- **React Router** - Navegación fluida
-- **Axios** - Cliente HTTP para API
+- **React + Vite** - Desarrollo rápido
+- **React Router** - Navegación SPA
+- **Axios** - Consumo de API
 - **Diseño responsive** - Mobile-first
-- **UI moderna** - Gradientes y animaciones
+- **Tema minimalista verde** sin animaciones (opcional)
 
 ## 📦 Instalación Rápida
 
@@ -59,7 +65,7 @@ npm run dev
 - **Backend API**: http://localhost:3900
 - **Frontend**: http://localhost:5173
 
-## 📡 API Endpoints
+## 📡 API Endpoints (Resumen)
 
 ### Artículos
 - `GET /api/listar` - Listar todos los artículos
@@ -107,6 +113,15 @@ MiBlogAPI/
 └── README.md
 ```
 
+## 🖼️ Manejo de Imágenes
+1. Se crea el artículo con `imgUrl: "default.png"`
+2. Frontend llama a `/api/subir-imagen/:id` con campo `file0`
+3. Multer guarda archivo en `Imagenes/articulos/`
+4. El controlador actualiza el documento (`imgUrl` = nombre del archivo)
+5. Frontend muestra: `http://localhost:3900/imagenes/articulos/<imgUrl>`
+
+Si no hay imagen → placeholder.
+
 ## 🧪 Testing
 
 ```bash
@@ -116,6 +131,15 @@ npm test
 # Ejecutar tests en modo watch
 npm run test:watch
 ```
+
+## 🧯 Troubleshooting Rápido
+| Problema | Causa | Solución |
+|----------|-------|----------|
+| Imagen no se muestra | `imgUrl` sigue como `default.png` | Asegura que se llamó a subir imagen tras crear |
+| 404 en imagen | Ruta o carpeta errónea | Confirmar carpeta `Imagenes/articulos` y casing |
+| Lista vacía | BD sin datos | Crear artículo con `POST /api/crear` |
+| CORS error | Backend caído | Levantar backend `npm start` |
+| Error EADDRINUSE | Puerto ocupado | Cerrar procesos `node` y reiniciar |
 
 ## 🎨 Tecnologías Utilizadas
 
@@ -174,6 +198,9 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 ## 👨‍💻 Autor
 
 **Carlos Arias** - Desarrollo inicial
+
+---
+> Tip: Si necesitas dark mode, paginación o búsqueda, revisa la sección "Mejoras Futuras" en los READMEs específicos.
 
 ---
 

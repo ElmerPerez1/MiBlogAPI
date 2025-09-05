@@ -6,7 +6,7 @@ const ArticuloControlador = require("../controladores/articulo");
 
 const almacenamiento = multer.diskStorage({
     destination: function(req,file,cb){
-        cb(null, './imagenes/articulos');
+        cb(null, './Imagenes/articulos');
     },
     filename: function(req,file,cb) {
         cb(null, "articulo" + Date.now() + file.originalname);

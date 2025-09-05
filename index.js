@@ -17,7 +17,7 @@ app.use(cors());
 app.use(express.json());
 
 //Servir archivos estáticos
-app.use('/imagenes', express.static('./imagenes'));
+app.use('/imagenes', express.static('./Imagenes'));
 
 //Crear rutas
 const rutas_articulo = require("./rutas/articulo");
